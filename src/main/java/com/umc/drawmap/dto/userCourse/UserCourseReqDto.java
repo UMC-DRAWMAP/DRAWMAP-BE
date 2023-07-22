@@ -1,4 +1,4 @@
-package com.umc.drawmap.dto;
+package com.umc.drawmap.dto.userCourse;
 
 import lombok.*;
 

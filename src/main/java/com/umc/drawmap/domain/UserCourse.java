@@ -1,9 +1,10 @@
 package com.umc.drawmap.domain;
 
-import com.umc.drawmap.dto.UserCourseReqDto;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -54,5 +55,8 @@ public class UserCourse extends BaseEntity {
         this.userCourseContent = userCourseContent;
         this.files = files;
         return this;
+    }
+    public void updateCount(int scrapCount) {
+        this.scrapCount = scrapCount;
     }
 }

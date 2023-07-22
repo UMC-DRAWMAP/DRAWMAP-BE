@@ -1,18 +1,21 @@
 package com.umc.drawmap.service;
 
+import com.umc.drawmap.domain.User;
 import com.umc.drawmap.domain.UserCourse;
-import com.umc.drawmap.dto.UserCourseReqDto;
+import com.umc.drawmap.dto.userCourse.UserCourseReqDto;
 import com.umc.drawmap.repository.UserCourseRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -44,9 +47,27 @@ public class UserCourseService {
         userCourseRepository.deleteById(ucourseId);
     }
 
-    // 유저 도전 조회
-    public List<UserCourse> userCourseList() {
-        return userCourseRepository.findAll();
+//============list===============//
+    public UserCourse findById(Long uCourseId){
+        return userCourseRepository.findById(uCourseId).get();
+    }
+
+    public List<UserCourse> findAllByUser(Long userId){
+
+//        User user = userCourseRepository.findById(userId).get();
+//        List<UserCourse> userCourseList = userCourseRepository.findAllByUser(user);
+        List<UserCourse> list = new ArrayList<>();
+//        for (UserCourse userCourse: userCourseList){
+//            UserCourse userCourse = userCourseRepository.findUserCourseByUser(user);
+//            list.add(userCourse);
+//        }
+
+        //Pageable pageable = PageRequest.of(page, size);
+        return list;
+    }
+    public List<UserCourse> findAll(){
+        List<UserCourse> userCourseList = userCourseRepository.findAll();
+        return userCourseList;
     }
 
 }

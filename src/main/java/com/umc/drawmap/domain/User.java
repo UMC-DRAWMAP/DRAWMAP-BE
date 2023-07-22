@@ -49,8 +49,11 @@ public class User {
     private List<Scrap> scraps = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<UserCourse> userCourses = new ArrayList<>();
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//    private List<UserCourse> userCourse = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_course_id")
+    private UserCourse userCourse;
 
     public User() {};
 
