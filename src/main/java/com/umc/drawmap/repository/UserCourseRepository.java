@@ -12,11 +12,16 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Optional;
 public interface UserCourseRepository extends JpaRepository<UserCourse, Long>{
-    Optional<UserCourse> findUserCourseByUserAndUserCourse(User user, UserCourse userCourse);
+//    Optional<UserCourse> findUserCourseByUser(User user, UserCourse userCourse);
 
     Optional<UserCourse> findById(Long uCourseId);
 
     List<UserCourse> findAll();
     List<UserCourse> findAllByUser(User user);
 
+    @Query("SELECT e FROM UserCourse e ORDER BY e.createdAt DESC")
+    Page<UserCourse> findAllOrderByCreatedAtDesc(PageRequest pageRequest);
+
+    @Query("SELECT e FROM UserCourse e order by e.scrapCount DESC ")
+    Page<UserCourse> findAllOrderByScrapCountDesc(PageRequest pageRequest);
 }

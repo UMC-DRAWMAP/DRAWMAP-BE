@@ -3,6 +3,7 @@ package com.umc.drawmap.service;
 import com.umc.drawmap.domain.User;
 import com.umc.drawmap.domain.UserCourse;
 import com.umc.drawmap.dto.userCourse.UserCourseReqDto;
+import com.umc.drawmap.exception.NotFoundException;
 import com.umc.drawmap.repository.UserCourseRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -54,7 +55,8 @@ public class UserCourseService {
 
     public List<UserCourse> findAllByUser(Long userId){
 
-//        User user = userCourseRepository.findById(userId).get();
+//        User user = userRepository.findById(userId)
+//                .orElseThrow(() -> new NotFoundException("사용자를 찾을 수 없습니다."));
 //        List<UserCourse> userCourseList = userCourseRepository.findAllByUser(user);
         List<UserCourse> list = new ArrayList<>();
 //        for (UserCourse userCourse: userCourseList){
@@ -62,7 +64,7 @@ public class UserCourseService {
 //            list.add(userCourse);
 //        }
 
-        //Pageable pageable = PageRequest.of(page, size);
+//        Pageable pageable = PageRequest.of(page, size);
         return list;
     }
     public List<UserCourse> findAll(){
@@ -70,4 +72,15 @@ public class UserCourseService {
         return userCourseList;
     }
 
+    public List<UserCourse> getPage(int page, int size){
+        PageRequest pageRequest = PageRequest.of(page,size);
+        Page<UserCourse> fetchPages = userCourseRepository.findAllOrderByCreatedAtDesc(pageRequest);
+        return fetchPages.getContent();
+    }
+
+    public List<UserCourse> getPageByScrap(int page, int size){
+        PageRequest pageRequest = PageRequest.of(page,size);
+        Page<UserCourse> fetchPages = userCourseRepository.findAllOrderByScrapCountDesc(pageRequest);
+        return fetchPages.getContent();
+    }
 }

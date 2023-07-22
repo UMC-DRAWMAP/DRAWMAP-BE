@@ -69,4 +69,18 @@ public class UserCourseController {
         return new BaseResponse<>(UserCourseConverter.toUserCourseDto(userCourse));
     }
 
+    // 유저개발코스 정렬(최신순)
+    @GetMapping("/usercourse/list")
+    public BaseResponse<List<UserCourseResDto.UserCourseSortDto>> getList(@RequestParam(name = "page")int page, @RequestParam(name = "size")int size){
+        List<UserCourse> userCourseList = userCourseService.getPage(page, size);
+        return new BaseResponse<>(UserCourseConverter.toUserCourseSortDto(userCourseList));
+    }
+
+    // 유저개발코스 정렬(인기순)
+    @GetMapping("/usercourse/scraplist")
+    public BaseResponse<List<UserCourseResDto.UserCourseSortDto>> getListByScrap(@RequestParam(name = "page")int page, @RequestParam(name = "size")int size){
+        List<UserCourse> userCourseList = userCourseService.getPageByScrap(page, size);
+        return new BaseResponse<>(UserCourseConverter.toUserCourseSortDto(userCourseList));
+    }
+
 }

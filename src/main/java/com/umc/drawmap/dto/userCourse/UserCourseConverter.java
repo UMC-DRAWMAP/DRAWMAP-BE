@@ -7,6 +7,7 @@ import com.umc.drawmap.repository.UserRepository;
 import com.umc.drawmap.service.ScrapService;
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,6 +58,25 @@ public class UserCourseConverter {
         return userCourseList.stream()
                 .map(userCourse -> toMyUserCourseDto(userCourse))
                 .collect(Collectors.toList());
+    }
+
+    public static List<UserCourseResDto.UserCourseSortDto> toUserCourseSortDto(List<UserCourse> userCourseList){
+        List<UserCourseResDto.UserCourseSortDto> sortList = new ArrayList<>();
+        for(UserCourse u: userCourseList){
+            User user = u.getUser();
+            UserCourseResDto.UserCourseSortDto result = UserCourseResDto.UserCourseSortDto.builder()
+                    .userCourseId(u.getUserId())
+                    .title(u.getUserCourseTitle())
+                    .difficulty(u.getUserCourseDifficulty())
+                    .content(u.getUserCourseContent())
+                    .area(u.getUserCourseArea())
+                    .user(UserResDto.UserDto.builder().userId(user.getId()).nickName(user.getNickName()).profileImg(user.getProfileImg()).build())
+                    .image(u.getUserImage())
+                    .createdDate(u.getCreatedAt())
+                    .build();
+            sortList.add(result);
+        }
+        return sortList;
     }
 
 }

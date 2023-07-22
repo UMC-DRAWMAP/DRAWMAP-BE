@@ -32,7 +32,6 @@ public class ScrapService {
     public Boolean findScrapByUserAndChallenge(User user, Challenge challenge){
         return scrapRepository.existsScrapByUserAndChallenge(user, challenge);
     }
-
     public Boolean findScrapByUserAndUserCourse(User user, UserCourse userCourse){
         return scrapRepository.existsScrapByUserAndUserCourse(user, userCourse);
     }
