@@ -1,7 +1,9 @@
 package com.umc.drawmap.controller;
 
+import com.umc.drawmap.domain.User;
 import com.umc.drawmap.dto.token.TokenReqDto;
 import com.umc.drawmap.dto.token.TokenResDto;
+import com.umc.drawmap.dto.user.UserReqDto;
 import com.umc.drawmap.exception.BaseResponse;
 
 import com.umc.drawmap.service.security.CustomOAuth2UserService;
@@ -42,7 +44,7 @@ public class OauthUserController {
         // 2. body 생성
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", "authorization_code"); //고정값
-        params.add("client_id", ""); // Client-id 입력해주세요!
+        params.add("client_id", "edca11eef18c98320d7a3db54af0b246"); // Client-id 입력해주세요!
         params.add("redirect_uri", "http://localhost:9000/callback"); //등록한 redirect uri
         params.add("code", code);
 
@@ -84,6 +86,12 @@ public class OauthUserController {
     public BaseResponse<TokenResDto> loginUser(@RequestBody TokenReqDto tokenReqDto) {
         TokenResDto tokenResDto = customOAuth2UserService.loginUser(tokenReqDto);
         return new BaseResponse<>(tokenResDto);
+    }
+
+    @PostMapping("/user/signup")
+    public BaseResponse<User> signUp(@RequestBody UserReqDto.signUpDto signUpDto) {
+        User user = customOAuth2UserService.createUser(signUpDto);
+        return new BaseResponse<>(user); // response dto 작업 하는 것도 좋을듯!
     }
 
 }
